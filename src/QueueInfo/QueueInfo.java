@@ -2,7 +2,7 @@ package QueueInfo;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class QueueInfo {
+public class QueueInfo extends QueueMap{
     ConcurrentHashMap<String, String> traceQueueInfoMap;
     String keyThreadId;
     String valueQueueId;
