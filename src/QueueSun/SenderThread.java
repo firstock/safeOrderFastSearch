@@ -25,14 +25,15 @@ class SenderThread implements Runnable {
 
         if (concurrentHashMap != null && concurrentHashMap.mappingCount() > 0) {
             if (concurrentHashMap != null && concurrentHashMap.size() > 0) {
-                //todo 올바른 key 전달
+                //todo _1_올바른 key 전달받아야
                 String key = name + Integer.toString(i);
 
                 if (concurrentHashMap.containsKey(key) == true) {
-                    System.out.println("Thread Name : " + "Key : " + key + ", Value : " + concurrentHashMap.get(key)); //ConcurrentLinkedQueue<NewDataModel>
+                    System.out.println("Thread Name : " + "Key : " + key + ", Value : " + concurrentHashMap.get(key));
                 } else {
                     System.out.println("Thread Name : " + "Not Exists Key : " + key);
                 }
+                //todo _2_찾은 큐를 sender Thread로 직접 날리기
             }
 
         }

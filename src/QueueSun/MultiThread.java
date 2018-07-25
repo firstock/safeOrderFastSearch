@@ -12,6 +12,7 @@ class MultiThread implements Runnable {
     ConcurrentHashMap<String, ConcurrentLinkedQueue<NewDataModel>> eqpQueueList;
     NewDataModel newDataModel;
 
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     public MultiThread(String tempIp, ConcurrentHashMap<String, ConcurrentLinkedQueue<NewDataModel>> tempEqpQueueList, String tempNum) {
@@ -27,9 +28,11 @@ class MultiThread implements Runnable {
 
         String threadId = Long.toString(Thread.currentThread().getId());
 
-        // 0.0x 단위로 새 메모리 할당
-        this.newDataModel = new NewDataModel();
-        newDataModel.Key = threadId + "_" + System.nanoTime();
+        // 0.0x 단위로 새 메모리에 할당
+        newDataModel= new NewDataModel();
+        newDataModel.setKey(threadId + "_" + System.nanoTime());
+        //todo _1_key를 SenderThread도 공유할 수 있는 어딘가(큐??)에 저장해야
+        //todo _1_싱글톤+key를 저장하는 자료구조
 
         if (false == this.eqpQueueList.containsKey(ip)) {
 
@@ -42,12 +45,12 @@ class MultiThread implements Runnable {
             tempQueue.add(newDataModel);
         }
 
-        System.out.println("Before      IP : " + ip + "     Key : " + newDataModel.Key + "     NewData : " + newDataModel.NewData + "     QueueCount : " + tempQueue.size() + "     Num : " + num);
+//        System.out.println("Before      IP : " + ip + "     Key : " + newDataModel.getKey() + "     NewData : " + newDataModel.NewData + "     QueueCount : " + tempQueue.size() + "     Num : " + num);
 
         try { Thread.sleep(10); } catch (InterruptedException ie) { }
 
-        newDataModel.NewData = dateFormat.format(new Date());
+//        newDataModel.NewData = dateFormat.format(new Date());
 
-        System.out.println("After       IP : " + ip + "     Key : " + newDataModel.Key + "     NewData : " + newDataModel.NewData);
+//        System.out.println("After       IP : " + ip + "     Key : " + newDataModel.getKey() + "     NewData : " + newDataModel.NewData);
     }
 }
